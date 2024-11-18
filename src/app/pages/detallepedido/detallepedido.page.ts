@@ -9,7 +9,13 @@ import { DbService } from 'src/app/services/db.service';
   styleUrls: ['./detallepedido.page.scss'],
 })
 export class DetallepedidoPage implements OnInit {
-  pedidoRecibido: any;
+  pedidoRecibido: any = {
+    id_pedido: '', 
+    fecha_pedido: '',
+    nombre_usuario: '',
+    total: '',
+    nombre_estado: '',
+  }
 
   arregloDetalle:any
 
@@ -50,7 +56,7 @@ export class DetallepedidoPage implements OnInit {
       this.detalles = await this.bd.obtenerDetallePedido(this.pedidoRecibido.id_pedido);
       this.totalPedido = this.detalles.reduce((total, detalle) => total + detalle.subtotal, 0);
     } catch (error) {
-      console.error('Error al cargar los detalles del pedido:', error);
+      alert( error);
     }
   }
 

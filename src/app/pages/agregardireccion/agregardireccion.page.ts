@@ -9,7 +9,11 @@ import { DbService } from 'src/app/services/db.service';
   styleUrls: ['./agregardireccion.page.scss'],
 })
 export class AgregardireccionPage implements OnInit {
-  usuarioRecibido: any;
+  usuarioRecibido: any = {
+    region: '',
+    comuna: '',
+    direccion: ''
+  };
 
   arregloRegion: any = [
     {

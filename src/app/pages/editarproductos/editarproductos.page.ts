@@ -9,7 +9,14 @@ import { DbService } from 'src/app/services/db.service';
   styleUrls: ['./editarproductos.page.scss'],
 })
 export class EditarproductosPage implements OnInit {
-  productoRecibido: any;
+  productoRecibido: any = {
+    foto: '',
+    nombre: '',
+    descripcion: '',
+    precio: '',
+    stock: '',
+    activo: '',
+  }
 
   constructor(private db: DbService, private router: Router, private activedroute: ActivatedRoute) {     this.activedroute.queryParams.subscribe(res=>{
     if(this.router.getCurrentNavigation()?.extras.state){

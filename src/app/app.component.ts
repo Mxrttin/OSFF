@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { Router, NavigationEnd } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -26,11 +27,6 @@ import { AlertController } from '@ionic/angular';
 
             <!-- Elementos para usuarios logueados -->
             <ng-container *ngIf="userId">
-              <ion-item [routerDirection]="'root'" [routerLink]="'/carrito'">
-                <ion-icon slot="start" name="cart"></ion-icon>
-                <ion-label>Carrito</ion-label>
-              </ion-item>
-
               <ion-item [routerDirection]="'root'" [routerLink]="'/cuenta'">
                 <ion-icon slot="start" name="person"></ion-icon>
                 <ion-label>Cuenta</ion-label>
@@ -74,7 +70,8 @@ export class AppComponent implements OnInit {
   constructor(
     private nativeStorage: NativeStorage,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private notificationService: NotificationService
   ) {}
 
   async ngOnInit() {

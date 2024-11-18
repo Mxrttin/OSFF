@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 
 describe('AuthService', () => {
   let service: AuthService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [NativeStorage]
+    });
     service = TestBed.inject(AuthService);
   });
 

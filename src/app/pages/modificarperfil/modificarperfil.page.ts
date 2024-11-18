@@ -10,7 +10,14 @@ import { DbService } from 'src/app/services/db.service';
   styleUrls: ['./modificarperfil.page.scss'],
 })
 export class ModificarperfilPage implements OnInit {
-  usuarioRecibido: any;
+  usuarioRecibido: any = {
+    foto:'',
+    nombre:'',
+    apellido:'',
+    rut:'',
+    correo:'',
+    telefono:'',
+  };
 
   constructor(private router: Router, private db: DbService, private activedroute: ActivatedRoute, private alertController: AlertController) { }
 

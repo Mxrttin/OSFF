@@ -54,7 +54,7 @@ export class LoginPage implements OnInit {
     }
   }
 
-  private limpiarCampos() {
+  public limpiarCampos() {
     this.loginUser = '';
     this.passwordUser = '';
   }

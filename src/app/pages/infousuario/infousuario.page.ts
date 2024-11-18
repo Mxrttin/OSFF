@@ -8,7 +8,17 @@ import { DbService } from 'src/app/services/db.service';
   styleUrls: ['./infousuario.page.scss'],
 })
 export class InfousuarioPage implements OnInit {
-  usuarioRecibido : any;
+  usuarioRecibido = {
+    foto: '', 
+    nombre: '',
+    apellido: '',
+    rut: '',
+    correo: '',
+    telefono: '',
+    comuna: '',
+    region: '',
+    direccion: ''
+  };
 
   constructor(private db: DbService, private router: Router, private activedroute: ActivatedRoute) { 
     this.activedroute.queryParams.subscribe(res=>{

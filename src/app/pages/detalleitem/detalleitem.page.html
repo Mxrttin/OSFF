@@ -7,13 +7,18 @@
     <ion-buttons slot="end" [routerLink]="'/carrito'">
       <ion-button fill="clear" size="large" color="dark">
         <ion-icon name="bag-handle" slot="icon-only"></ion-icon>
+        <ion-badge *ngIf="cantidadProductosCarrito > 0" 
+                  color="tertiary" 
+                  class="cart-badge">
+          {{cantidadProductosCarrito}}
+        </ion-badge>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
   
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle color="dark"  class="small-title" >{{productoRecibido.nombre | uppercase}}</ion-card-subtitle>
+      <ion-card-subtitle color="dark"  class="small-title" >{{productoRecibido.nombre}}</ion-card-subtitle>
       <ion-card-title color="dark">{{productoRecibido.description}}</ion-card-title>
     </ion-card-header>
 
@@ -21,18 +26,27 @@
       <div [style.backgroundImage]="'url(' + productoRecibido.foto + ')'" class="bg"></div>
 
       <ion-label>
-        <h5>{{productoRecibido.name | uppercase }}</h5>
+        <h5>{{productoRecibido.name}}</h5>
         <p class="desc">{{productoRecibido.description}}</p>
         <p>
           <ion-text color="dark" class="price">$<span>{{productoRecibido.precio}}</span></ion-text>
         </p>
       </ion-label>
 
-      <ion-item>
-        <ion-select label="Talla" placeholder="Seleccione una talla" [(ngModel)]="tallaSeleccionada">
-          <ion-select-option color="light" value="{{talla.nombre}}" *ngFor="let talla of arregloTalla">{{talla.nombre}}</ion-select-option>
-        </ion-select>
-      </ion-item>
+      <div class="talla-container">
+        <ion-text color="dark"><b>Talla:</b></ion-text>
+        <div class="talla-buttons">
+          <ion-button 
+            *ngFor="let talla of arregloTalla"
+            (click)="seleccionarTalla(talla.nombre)"
+            [color]="isTallaSeleccionada(talla.nombre) ? 'tertiary' : 'light'"
+            fill="solid"
+            size="small"
+            class="talla-button">
+            {{talla.nombre}}
+          </ion-button>
+        </div>
+      </div>
 
       <ion-item>
         <b>Stock Disponible: {{productoRecibido.stock}}</b>
