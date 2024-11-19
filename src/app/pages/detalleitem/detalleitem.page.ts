@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { Network } from '@capacitor/network';
 import { AlertController, ToastController } from '@ionic/angular';
 import { CarritoService } from 'src/app/services/carrito.service';
@@ -20,6 +21,7 @@ export class DetalleitemPage implements OnInit {
   precioCLP: number = 0;
   precioUSD: number = 0;
   isOnline: boolean = true;
+  IsLoggedIn: boolean = false;
 
   constructor(
     private db: DbService, 
@@ -27,13 +29,18 @@ export class DetalleitemPage implements OnInit {
     private activedroute: ActivatedRoute,
     private alertController: AlertController,  
     private carrito: CarritoService,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private nativeStorage: NativeStorage
   ) {
+    this.checkLoginStatus(); //
     this.carrito.carrito$.subscribe(items => {
-      this.cantidadProductosCarrito = items.reduce((total, item) => total + item.cantidad, 0);
+      this.cantidadProductosCarrito = this.IsLoggedIn ? ///
+        items.reduce((total, item) => total + item.cantidad, 0) : ///
+        0; ///
     });
     this.checkNetworkStatus();
   }
+
 
   async checkNetworkStatus() {
     const status = await Network.getStatus();
@@ -116,6 +123,30 @@ export class DetalleitemPage implements OnInit {
   }
 
   async agregarAlCarrito(producto: any) {
+
+    if (!this.IsLoggedIn) {
+      const alert = await this.alertController.create({
+        header: 'Inicio de sesión requerido',
+        message: 'Debes iniciar sesión para agregar productos al carrito',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel'
+          },
+          {
+            text: 'Ir a Login',
+            handler: () => {
+              this.router.navigate(['/login']);
+            }
+          }
+        ]
+      });
+      await alert.present();
+      return;
+    }
+
+
+
     // Validar stock antes de agregar
     if (producto.stock <= 0) {
       this.mostrarAlerta('Error', 'No hay stock disponible');
@@ -167,5 +198,14 @@ export class DetalleitemPage implements OnInit {
 
   isTallaSeleccionada(talla: string): boolean {
     return this.tallaSeleccionada === talla;
+  }
+
+  async checkLoginStatus() {
+    try {
+      const userId = await this.nativeStorage.getItem('userId');
+      this.IsLoggedIn = !!userId;
+    } catch (error) {
+      this.IsLoggedIn = false;
+    }
   }
 }

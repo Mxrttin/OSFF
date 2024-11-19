@@ -13,6 +13,7 @@ export class HomePage implements OnInit {
   arregloProductosActivos: any; 
   cantidadProductosCarrito: number = 0;
   productosFiltrados: any[] = [];
+  IsLoggedIn: boolean = false
 
   constructor(
     private router: Router,
@@ -21,7 +22,11 @@ export class HomePage implements OnInit {
   ) {
     // Suscripción al carrito para obtener la cantidad total de productos
     this.carritoService.carrito$.subscribe(items => {
-      this.cantidadProductosCarrito = items.reduce((total, item) => total + item.cantidad, 0);
+      if (this.IsLoggedIn) { //
+        this.cantidadProductosCarrito = items.reduce((total, item) => total + item.cantidad, 0); //
+      } else { //
+        this.cantidadProductosCarrito = 0; //
+      }
     });
   }
 

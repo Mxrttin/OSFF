@@ -125,7 +125,7 @@ async incrementarCantidad(producto: any) {
         // Asegúrate de que el usuario esté cargado antes de proceder
         if (!this.arregloUsuario || this.arregloUsuario.length === 0) {
             alert('No hay un usuario autenticado.');
-            return; // Salir si no hay usuario
+            return;
         }
 
         const userId = this.arregloUsuario[0].id_usuario; // Accede al ID del primer usuario
