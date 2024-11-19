@@ -120,8 +120,7 @@ export class CarritoPage implements OnInit {
 
         const userId = this.arregloUsuario[0].id_usuario; // Accede al ID del primer usuario
 
-        // El resto del código permanece igual...
-        // Verificar stock antes de proceder
+
         for (const producto of this.carrito) {
             if (producto.stock < producto.cantidad) {
                 alert(`No hay suficiente stock para ${producto.nombre}`);
@@ -153,7 +152,6 @@ export class CarritoPage implements OnInit {
         this.router.navigate(['/home']);
         
     } catch (error) {
-        console.error('Error al procesar el pago:', error);
         alert('Hubo un problema al realizar el pago. Detalles del error: ' + JSON.stringify(error));
     }
 }

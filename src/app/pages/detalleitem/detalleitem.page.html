@@ -28,9 +28,16 @@
       <ion-label>
         <h5>{{productoRecibido.name}}</h5>
         <p class="desc">{{productoRecibido.description}}</p>
-        <p>
-          <ion-text color="dark" class="price">$<span>{{productoRecibido.precio}}</span></ion-text>
-        </p>
+        <div class="precios-container">
+          <div class="precio">
+            <span class="monto">${{ precioUSD }}</span>
+            <span class="moneda">USD</span>
+          </div>
+          <div class="precio">
+            <span class="monto">{{ precioCLP | currency:'CLP':'symbol-narrow':'1.0-0' }}</span>
+            <span class="moneda">CLP</span>
+          </div>
+        </div>
       </ion-label>
 
       <div class="talla-container">

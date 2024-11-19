@@ -31,4 +31,17 @@ describe('CambiarpasswordPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('validar limpiar campos', () => {
+    component.password_actual = 'ejemplopass'
+    component.password_nueva = 'ejemplopassN'
+    component.confirmar_password = 'ejemplopassN'
+
+    component.limpiarCampos()
+
+    expect(component.password_actual).toBe('');
+    expect(component.password_nueva).toBe('');
+    expect(component.confirmar_password).toBe('');
+
+  });
 });

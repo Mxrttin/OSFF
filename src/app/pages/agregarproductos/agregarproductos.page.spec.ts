@@ -20,10 +20,4 @@ describe('AgregarproductosPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('validar que el stock no este vacio', () => {
-    const stock = '';
-    
-  });
-
 });

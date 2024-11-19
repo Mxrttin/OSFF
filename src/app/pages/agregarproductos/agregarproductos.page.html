@@ -41,11 +41,11 @@
       </ion-item>
 
       <ion-item>
-        <ion-input label="Precio" labelPlacement="floating" placeholder="" type="number" [(ngModel)]="precio"></ion-input>
+        <ion-input label="Precio" labelPlacement="floating" placeholder="" type="number" [(ngModel)]="precio" (ionChange)="validarPrecio($event)" min="0" step="1"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input label="Stock" labelPlacement="floating" placeholder="" type="number" [(ngModel)]="stock"></ion-input>
+        <ion-input label="Stock" labelPlacement="floating" placeholder="" type="number" [(ngModel)]="stock" (ionChange)="validarStock($event)" min="0" step="1"></ion-input>
       </ion-item>
       <br>
       <div class="boton">

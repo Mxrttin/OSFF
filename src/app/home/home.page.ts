@@ -9,8 +9,8 @@ import { CarritoService } from '../services/carrito.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-
-  arregloProductos: any ;
+  arregloProductos: any 
+  arregloProductosActivos: any; // Solo los productos activos
   cantidadProductosCarrito: number = 0;
 
   constructor(
@@ -18,27 +18,30 @@ export class HomePage implements OnInit {
     private db: DbService,
     private carritoService: CarritoService
   ) {
+    // Suscripción al carrito para obtener la cantidad total de productos
     this.carritoService.carrito$.subscribe(items => {
       this.cantidadProductosCarrito = items.reduce((total, item) => total + item.cantidad, 0);
     });
   }
 
-  ngOnInit () {
-    this.db.dbState().subscribe(data =>{
-      if(data){
-        this.db.fetchProducto().subscribe(res=>{
-          this.arregloProductos = res;
-        })
+  ngOnInit() {
+    this.db.dbState().subscribe(data => {
+      if (data) {
+        this.db.fetchProducto().subscribe(res => {
+          this.arregloProductos = res; // Mantén todos los productos en este arreglo
+          // Filtrar productos activos
+          this.arregloProductosActivos = this.arregloProductos.filter((producto: { activo: string; }) => producto.activo === 'Activo');
+        });
       }
-    })
+    });
   }
 
-  visualizar(item:any){
-    let navigationExtras : NavigationExtras = {
-      state:{
+  visualizar(item: any) {
+    let navigationExtras: NavigationExtras = {
+      state: {
         productoEnviado: item
       }
-    }
-    this.router.navigate(['/detalleitem'],navigationExtras);
+    };
+    this.router.navigate(['/detalleitem'], navigationExtras);
   }
 }

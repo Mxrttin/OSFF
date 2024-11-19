@@ -12,11 +12,11 @@ import { DbService } from 'src/app/services/db.service';
 export class AgregarproductosPage implements OnInit {
 
   imagen: any;
-  precio: any ;
+  precio: number = 0;
   nombre: string =''
   descripcion: string=''
   categorias:any
-  stock:any
+  stock: number = 0;
 
   arregloCategorias: any
 
@@ -75,16 +75,34 @@ export class AgregarproductosPage implements OnInit {
     }
 
     this.registroToast('bottom')
-    this.db.insertarProducto(this.nombre,this.descripcion,this.categorias,this.imagen,this.precio,this.stock)
+    this.db.insertarProducto(this.nombre,this.descripcion,this.categorias,this.imagen,this.precio.toString(),this.stock.toString())
     this.router.navigate(['/adminproductos'])
   }
 
+  validarPrecio(event: any) {
+    const valor = event.target.value;
+    // Elimina decimales y números negativos
+    const numeroEntero = Math.floor(Math.abs(Number(valor)));
+    this.precio = numeroEntero;
+    
+    // Si el valor no es un número válido, lo establece en 0
+    if (isNaN(this.precio)) {
+      this.precio = 0;
+    }
+  }
 
+  validarStock(event: any) {
+    const valor = event.target.value;
+    // Elimina decimales y números negativos
+    const numeroEntero = Math.floor(Math.abs(Number(valor)));
+    this.stock = numeroEntero;
+    
+    // Si el valor no es un número válido, lo establece en 0
+    if (isNaN(this.stock)) {
+      this.stock = 0;
+    }
+  }
 
-
-
-
-  
   takePicture = async () => {
     const image = await Camera.getPhoto({
       quality: 90,
@@ -100,13 +118,10 @@ export class AgregarproductosPage implements OnInit {
 
   };
 
-
-
-
   async userAlert() {
     const alert = await this.alertController.create({
       header: "",
-      message: "Precio no puede ser menor a 0",
+      message: "Precio no puede ser menor o igual a 0",
       buttons: ['OK'],
     });
 
@@ -182,8 +197,6 @@ export class AgregarproductosPage implements OnInit {
 
     await alert.present();
   }
-
-
 
   async registroToast(position:'bottom') {
     const toast = await this.toastController.create({

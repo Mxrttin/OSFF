@@ -33,7 +33,7 @@ describe('RegistroPage', () => {
   
     const resultado = component.passwordIguales();
   
-    expect(resultado).toBeTrue();
+    expect(resultado).toBeFalse();
   });
 
 

@@ -74,7 +74,7 @@ export class RegistroPage implements OnInit {
     }
 
     // Validación de coincidencia de contraseñas
-    if (this.password !== this.confirmarPassword) {
+    if (this.passwordIguales()) {
       this.contraAlert();
       return;
     }
@@ -298,7 +298,7 @@ export class RegistroPage implements OnInit {
   }
 
   passwordIguales(): boolean {
-    return this.password === this.confirmarPassword;
+    return this.password !== this.confirmarPassword;
   }
 
 }

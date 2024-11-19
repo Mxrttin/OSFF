@@ -95,3 +95,29 @@ ion-button {
   position: relative; // Para posicionar el badge correctamente
 }
 
+.precios-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 15px;
+}
+
+.precio {
+  color: black;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  .monto {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .moneda {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #666;
+  }
+}
+
+

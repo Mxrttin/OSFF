@@ -263,13 +263,26 @@ export class DbService {
     })
   }
 
-  ModificarProducto( id:string, nombre:string, descripcion:string, precio:string, stock:string,activo:string,foto:string){
-    return this.database.executeSql('UPDATE producto SET nombre = ?, descripcion = ?, precio = ? , stock = ?, activo=?, foto=? WHERE id_producto=?.',[nombre,descripcion,precio,stock,activo,foto,id]).then(res=>{
-      this.presentAlert("Modificar producto","Producto Modificado"),
-      this.consultarProducto();
-    }).catch(e=>{
-
-    })
+  async ModificarProducto(id: string, nombre: string, descripcion: string, precio: string, stock: string, activo: string, foto: string) {
+    try {
+      // Ejecutar la actualización en la base de datos
+      const res = await this.database.executeSql(
+        'UPDATE producto SET nombre = ?, descripcion = ?, precio = ?, stock = ?, activo = ?, foto = ? WHERE id_producto = ?',
+        [nombre, descripcion, precio, stock, activo, foto, id]
+      );
+  
+      // Mostrar un mensaje de éxito
+      this.presentAlert("Modificar producto", "Producto modificado con éxito.");
+  
+      // Consultar nuevamente los productos después de la actualización
+      await this.consultarProducto();
+  
+      return res; // Retornar el resultado de la operación
+    } catch (e) {
+      console.error("Error al modificar el producto:", e); // Mostrar error si ocurre
+      this.presentAlert("Error", "Hubo un error al modificar el producto.");
+      throw e; // Propagar el error para un manejo más avanzado
+    }
   }
 
   insertarProducto(nombre:string, descripcion:string, categoria:string, foto:string, precio:string, stock:string){
@@ -507,34 +520,10 @@ export class DbService {
       });
   }
 
-  // obtenerPedidoPorId(id: number): Promise<Pedido | null>{
-  //   return this.database.executeSql('SELECT * FROM pedido WHERE usuario = ?',[id]).then(res=>{
-  //     if (res.rows.length > 0) {
-  //       const pedido: Pedido = {
-  //         id_pedido: res.rows.item(0).id_pedido,
-  //         fecha_pedido: res.rows.item(0).fecha_pedido,
-  //         usuario: res.rows.item(0).usuario,
-  //         total: res.rows.item(0).total,
-  //         estado: res.rows.item(0).estado,
-  //         nombre_usuario: res.rows.item(0).nombre_usuario,
-  //         nombre_estado: res.rows.item(0).nombre_estado,
-
-  //       };
-  //       return pedido;
-  //     }
-  //     return null
-  //   })
-  //   .catch(e => {
-  //     console.error('Error al obtener usuario por ID:', e);
-  //     return null; 
-  //   });
-  // }  
-
   actualizarStock(id: number, stock: number){
     return this.database.executeSql('UPDATE producto set stock = ? WHERE id_producto = ?',[stock,id]).then(res=>{
       this.consultarProducto()
     })
-
   }
 
   consultarPedido(){

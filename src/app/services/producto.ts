@@ -6,5 +6,5 @@ export class Producto {
     foto!:string;
     precio!:number;
     stock!:number;
-    activo!: number;
+    activo!: string;
 }

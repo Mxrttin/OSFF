@@ -59,6 +59,7 @@ export class CambiarpasswordPage implements OnInit {
     await this.db.modificarPassword(this.usuarioRecibido.id_usuario, this.password_nueva);
     this.presentAlert('Exito','Contraseña modificada con exito')
     this.router.navigate(['/cuenta']);
+    this.limpiarCampos()
   }
 
   async presentAlert(titulo:string,msj:string){
@@ -68,5 +69,11 @@ export class CambiarpasswordPage implements OnInit {
       buttons: ['OK'],
     })
     await alert.present();
+  }
+
+  public limpiarCampos() {
+    this.password_actual = '';
+    this.password_nueva = '';
+    this.confirmar_password = '';
   }
 }
