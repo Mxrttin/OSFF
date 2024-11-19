@@ -34,7 +34,7 @@ export class DetalleitemPage implements OnInit {
   ) {
     this.checkLoginStatus(); //
     this.carrito.carrito$.subscribe(items => {
-      this.cantidadProductosCarrito = this.IsLoggedIn ? ///
+      this.cantidadProductosCarrito = this.IsLoggedIn ? 
         items.reduce((total, item) => total + item.cantidad, 0) : ///
         0; ///
     });

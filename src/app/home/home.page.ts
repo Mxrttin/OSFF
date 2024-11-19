@@ -20,7 +20,7 @@ export class HomePage implements OnInit {
     private db: DbService,
     private carritoService: CarritoService
   ) {
-    // Suscripción al carrito para obtener la cantidad total de productos
+    
     this.carritoService.carrito$.subscribe(items => {
       if (this.IsLoggedIn) { //
         this.cantidadProductosCarrito = items.reduce((total, item) => total + item.cantidad, 0); //
@@ -67,4 +67,6 @@ export class HomePage implements OnInit {
     };
     this.router.navigate(['/detalleitem'], navigationExtras);
   }
+
+  
 }
