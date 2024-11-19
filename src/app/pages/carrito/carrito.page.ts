@@ -67,19 +67,29 @@ export class CarritoPage implements OnInit {
     }
 }
 
-  async incrementarCantidad(producto: any) {
-    try {
-      if (producto.cantidad >= 5) {
-        await this.mostrarAlerta('Límite alcanzado', 'No puedes agregar más de 5 unidades de este producto.');
-        return;
-      }
-      producto.cantidad += 1;
-      await this.carritoService.actualizarCantidad(producto.id_producto, producto.talla, producto.cantidad);
-    } catch (error) {
-      console.error('Error al incrementar cantidad:', error);
-      await this.mostrarAlerta('Error', 'No se pudo actualizar la cantidad del producto.');
+async incrementarCantidad(producto: any) {
+  try {
+    // Validar si ya alcanzó el límite de 5 unidades
+    if (producto.cantidad >= 5) {
+      await this.mostrarAlerta('Límite alcanzado', 'No puedes agregar más de 5 unidades de este producto.');
+      return;
     }
+
+    // Validar si excede el stock disponible
+    if (producto.cantidad + 1 > producto.stock) {
+      await this.mostrarAlerta('Error', `Solo hay ${producto.stock} unidades disponibles`);
+      return;
+    }
+
+    producto.cantidad += 1;
+
+    // Actualizar en el carrito
+    await this.carritoService.actualizarCantidad(producto.id_producto, producto.talla, producto.cantidad);
+  } catch (error) {
+    console.error('Error al incrementar cantidad:', error);
+    await this.mostrarAlerta('Error', 'No se pudo actualizar la cantidad del producto.');
   }
+}
   
   async reducirCantidad(producto: any) {
     try {

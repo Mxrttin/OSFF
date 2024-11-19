@@ -27,14 +27,23 @@ describe('RegistroPage', () => {
     expect(resultado.errores).toContain('- Mínimo 8 caracteres');
   });
 
+  it('validar que las contraseñas sean diferentes', () => {
+    component.password = 'Prueba123';
+    component.confirmarPassword = 'Prueba12';
+  
+    const resultado = component.passwordDiferentes();
+  
+    expect(resultado).toBeTrue();
+  });
+
   it('validar que las contraseñas sean iguales', () => {
     component.password = 'Prueba123';
-    component.confirmarPassword = 'Prueba123';
+    component.confirmarPassword = 'Prueba123'; 
   
-    const resultado = component.passwordIguales();
+    const resultado = component.passwordDiferentes();
   
-    expect(resultado).toBeFalse();
-  });
+    expect(resultado).toBeFalse(); 
+});
 
 
   

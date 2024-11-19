@@ -34,4 +34,16 @@ export class CatalogoPage implements OnInit {
     })
   }
 
+  getCategorias(): string[] {
+    return Array.from(new Set(
+      this.arregloProductos
+        .map((p: { categoria: any; }) => p.categoria)
+        .filter((categoria: string) => categoria !== '')
+    ));
+  }
+
+  getProductosPorCategoria(categoria: string) {
+    return this.arregloProductos.filter((producto: any) => producto.categoria === categoria);
+  }
+
 }

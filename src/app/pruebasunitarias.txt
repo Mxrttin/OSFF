@@ -1,0 +1,5 @@
+Pagina login
+Pagina cambiarpassword
+Pagina detalleitem
+Pagina registro
+Pagina editarproductos

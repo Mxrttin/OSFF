@@ -32,4 +32,19 @@ describe('EditarproductosPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('debería asignar el precio correctamente si el valor es válido', () => {
+    const evento = { target: { value: '123.45' } }; 
+    component.validarPrecio(evento);
+
+    expect(component.productoRecibido.precio).toBe(123); 
+  });
+
+  it('debería asignar 0 si el valor es una cadena vacía', () => {
+    const evento = { target: { value: '' } }; // Valor vacío
+    component.validarPrecio(evento);
+
+    expect(component.productoRecibido.precio).toBe(0);
+  });
+
 });

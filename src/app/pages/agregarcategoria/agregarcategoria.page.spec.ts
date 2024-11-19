@@ -6,6 +6,7 @@ describe('AgregarcategoriaPage', () => {
   let component: AgregarcategoriaPage;
   let fixture: ComponentFixture<AgregarcategoriaPage>;
 
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [SQLite],
@@ -19,4 +20,17 @@ describe('AgregarcategoriaPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it('mostrar alerta si categoria esta vacia', () => {
+  //   component.categoria = ''
+
+  //   spyOn(component, 'mostrarAlerta')
+
+  //   const resultado = component.guardar()
+
+  //   expect(resultado).toBe(false)
+
+
+  // });
+
 });

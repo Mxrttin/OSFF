@@ -21,6 +21,31 @@
 
 <ion-content>
 
+  <ion-searchbar 
+    (ionChange)="buscarProductos($event)"
+    placeholder="Buscar productos">
+  </ion-searchbar>
+
+    <ion-row>
+      <ion-col sizeLg="8" sizeMd="4" sizeSm="6" sizeXl="3" sizeXs="6" *ngFor="let item of productosFiltrados">
+        <ion-card (click)="visualizar(item)">
+          <ion-thumbnail>
+            <ion-img [src]='item.foto'></ion-img>
+          </ion-thumbnail>
+    
+          <ion-label>
+            <ion-text color="dark"><strong>{{item.nombre}}</strong></ion-text>
+            <p>
+              <ion-text color="dark">
+                $<strong>{{item.precio}}</strong>
+              </ion-text>
+            </p>
+          </ion-label>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+
   <ion-row>
     <ion-col sizeLg="8" sizeMd="4" sizeSm="6" sizeXl="3" sizeXs="6" *ngFor="let item of arregloProductosActivos">
       <ion-card (click)="visualizar(item)">

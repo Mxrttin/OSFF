@@ -8,43 +8,20 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card *ngFor="let categoria of getCategorias()">
     <ion-card-header>
-      <ion-card-title class="ion-text-center" color="dark">Hoodies</ion-card-title>
+      <ion-card-title class="ion-text-center" color="dark">
+        {{categoria}}
+      </ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col size="12" *ngFor="let item of arregloProductos">
-            <ion-card *ngIf="item.categoria == 'Poleron'">
+          <ion-col size="12" *ngFor="let item of getProductosPorCategoria(categoria)">
+            <ion-card>
               <img [src]="item.foto" />
               <ion-card-header>
                 <ion-card-title color="dark">{{ item.nombre }}</ion-card-title>
-                
-              </ion-card-header>
-              <ion-card-content >
-                <p color="dark">{{ item.descripcion }}</p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title class="ion-text-center" color="dark">Poleras</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12" *ngFor="let item of arregloProductos">
-            <ion-card *ngIf="item.categoria == 'Polera'">
-              <img [src]="item.foto" />
-              <ion-card-header>
-                <ion-card-title color="dark">{{ item.nombre }}</ion-card-title>
-                
               </ion-card-header>
               <ion-card-content>
                 <p color="dark">{{ item.descripcion }}</p>
@@ -55,51 +32,4 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title class="ion-text-center" color="dark">Falda</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12" *ngFor="let item of arregloProductos">
-            <ion-card *ngIf="item.categoria == 'Falda'">
-              <img [src]="item.foto" />
-              <ion-card-header>
-                <ion-card-title color="dark">{{ item.nombre }}</ion-card-title>
-                
-              </ion-card-header>
-              <ion-card-content>
-                <p color="dark">{{ item.descripcion }}</p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title class="ion-text-center" color="dark">Short</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12" *ngFor="let item of arregloProductos">
-            <ion-card *ngIf="item.categoria == 'Short'">
-              <img [src]="item.foto" />
-              <ion-card-header>
-                <ion-card-title color="dark">{{ item.nombre }}</ion-card-title>
-                
-              </ion-card-header>
-              <ion-card-content>
-                <p color="dark">{{ item.descripcion }}</p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+</ion-content>

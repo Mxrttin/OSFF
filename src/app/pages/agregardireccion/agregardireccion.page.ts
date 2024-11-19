@@ -58,17 +58,17 @@ export class AgregardireccionPage implements OnInit {
 
   guardar(){
 
-    if(this.usuarioRecibido.region === ''){
+    if(this.usuarioRecibido.region.trim() === ''){
       this.mostrarAlertaRegion()
       return
     }
 
-    if(this.usuarioRecibido.comuna === ''){
+    if(this.usuarioRecibido.comuna.trim() === ''){
       this.mostrarAlertaComuna()
       return
     }
 
-    if(this.usuarioRecibido.direccion === ''){
+    if(this.usuarioRecibido.direccion.trim() === ''){
       this.mostrarAlertaDireccion()
       return
     }
@@ -103,5 +103,6 @@ export class AgregardireccionPage implements OnInit {
     });
     await alert.present();
   }
+
 
 }

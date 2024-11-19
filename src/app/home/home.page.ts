@@ -10,8 +10,9 @@ import { CarritoService } from '../services/carrito.service';
 })
 export class HomePage implements OnInit {
   arregloProductos: any 
-  arregloProductosActivos: any; // Solo los productos activos
+  arregloProductosActivos: any; 
   cantidadProductosCarrito: number = 0;
+  productosFiltrados: any[] = [];
 
   constructor(
     private router: Router,
@@ -34,6 +35,23 @@ export class HomePage implements OnInit {
         });
       }
     });
+  }
+
+
+
+  filtrarProductos(terminoBusqueda: string) {
+    return this.arregloProductosActivos.filter((producto: any) => 
+      producto.nombre.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+      producto.descripcion.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+      producto.categoria.toLowerCase().includes(terminoBusqueda.toLowerCase())
+    );
+  }
+
+  buscarProductos(event: any) {
+    const terminoBusqueda = event.target.value;
+    this.productosFiltrados = terminoBusqueda 
+      ? this.filtrarProductos(terminoBusqueda)
+      : this.arregloProductosActivos;
   }
 
   visualizar(item: any) {
