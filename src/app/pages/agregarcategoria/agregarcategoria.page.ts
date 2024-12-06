@@ -18,6 +18,13 @@ export class AgregarcategoriaPage implements OnInit {
     async guardar() {
         try {
             // Validación de campo vacío
+            const categoriaNormalizada = this.categoria.toLowerCase();
+            const existeCategoria = await this.db.verificarCategoria(categoriaNormalizada, 0);
+            if (existeCategoria) {
+                this.presentAlert('Categoria existente', 'Ya existe una categoria registrada con ese nombre.');
+                return;
+            }
+
             if (!this.categoria || this.categoria.trim() === "") {
                 await this.mostrarAlerta(
                     "Campo requerido",
@@ -70,6 +77,16 @@ export class AgregarcategoriaPage implements OnInit {
             header,
             message,
             buttons: ['OK']
+        });
+        await alert.present();
+    }
+
+    async presentAlert(header: string, message: string) {
+        const alert = await this.alertController.create({
+        header: header,
+        message: message,
+        buttons: ['OK'],
+        cssClass: 'custom-alert'
         });
         await alert.present();
     }

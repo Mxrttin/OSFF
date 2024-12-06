@@ -599,6 +599,17 @@ export class DbService {
       return result.rows.length > 0; // Retorna true si el correo ya existe
     });
   }
+
+  verificarCategoria(categoria: string, id: number): Promise<boolean>{
+    return this.database.executeSql(
+      'SELECT * FROM categoria WHERE LOWER(nombre) = LOWER(?) AND id_categoria <> ?',
+      [categoria,id]
+    ).then(result =>{
+      return result.rows.length > 0;
+    })
+
+    
+  }
   
   verificarTelefono(telefono: number, id_usuario: number): Promise<boolean> {
     return this.database.executeSql(

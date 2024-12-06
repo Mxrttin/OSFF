@@ -29,7 +29,15 @@ export class ModificarperfilPage implements OnInit {
     })
   }
 
-  guardar(){
+  async guardar(){
+
+    const existeCorreo = await this.db.verificarCorreo(this.usuarioRecibido.correo, 0);
+    if (existeCorreo) {
+      this.presentAlert('Correo existente', 'Ya existe un usuario registrado con ese correo.');
+      return;
+    }
+
+
     this.db.modificarDatos(this.usuarioRecibido.id_usuario,this.usuarioRecibido.nombre,this.usuarioRecibido.apellido,this.usuarioRecibido.rut,this.usuarioRecibido.correo,this.usuarioRecibido.telefono,this.usuarioRecibido.foto)
     this.router.navigate(['/cuenta'])
   }
@@ -42,5 +50,19 @@ export class ModificarperfilPage implements OnInit {
     });
     this.usuarioRecibido.foto = image.webPath;
   };
+
+  cancelar(){
+    this.router.navigate(['/cuenta'])
+  }
+
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK'],
+      cssClass: 'custom-alert'
+    });
+    await alert.present();
+  }
 
 }
